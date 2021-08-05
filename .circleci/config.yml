@@ -6,12 +6,15 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch
+      - image: 'cimg/base:stable'
     executor: ruby/default
     steps:
       - checkout
+      - ruby/install:
+          version: '2.6.3'
+      - ruby/install-deps
       - node/install:
           install-yarn: true
-      - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
+      - ruby/rspec-test
